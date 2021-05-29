@@ -1,0 +1,10 @@
+Na tej płytce NucleoH723ZI  -- zmienić te adresy cortex na 30000000 i 30004000  -- w tym moim procku nie ma takiego ramu o adresie 0x30040000...
+trzeba użyć tego co jest czyli 0x30000000 cube mi ciagle modyfikuje lwipopts.h lipa ale to jednak zmodyfikować trzeba było w Cubie
+i potem zmienić tą wartość w lwipopts.h i niby cosik zaczyna startować 
+jest git 
+
+acha i cały plik .flash skopiowałem z przykładu...  -- lenistwo
+
+dodałem te definicje całe w build preporocessor DATA_IN_D2_SRAM
+
+w sterowniku ETH zmieniłem adresy dekryptorów na dobre -- te z przykładu
