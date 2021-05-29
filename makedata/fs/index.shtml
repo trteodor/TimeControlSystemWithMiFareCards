@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+		<meta charset="ucf-8" />
+<title>STM32 H723ZI Test</title>
+<meta charset="utf-8" />
+</head>
+<head>
+    <title>Page Title</title>
+    <meta http-equiv="refresh" content="5">
+</head>
+<body>
+<p>Simple HTTP Test Created by Teodor R.</p>
+<br>
+<p>This site allows you to control the LEDs: LED1 and LED2. You have to click on the "Send" button to change the LEDs</p>
+<form method="get" action="/leds.cgi">
+<!--#tag1-->LED1 (green)
+<br>
+<!--#tag2-->LED2 (red)
+<br>
+<td><!--#tag3--> <small><span style="font-family: Verdana;"></span></small> </td>
+<br>
+<input value="Send" type="submit">
+</form>
+<br>
+<br>
+Mój git Hub<a href="https://github.com/trteodor" target=blank>  https://github.com/trteodor </a>
+<br>
+<br>
+<img src="img/pikaavatar.png" alt="Pozdrawiam">
+<img src="img/pikaavatar.png" alt="Pozdrawiam" style="float: right">
+</body>
+</html>

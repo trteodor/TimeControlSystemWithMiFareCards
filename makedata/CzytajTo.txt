@@ -1,0 +1,3 @@
+Trzeba zainstalowac perla - potem z cmd wywołać skrypt makefsdata.pl
+
+> perl makefsdata.pl
