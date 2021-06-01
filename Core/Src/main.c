@@ -37,6 +37,8 @@
 #include "http_app.h"
 #include "lwip/apps/httpd.h"
 
+#include "rc522_app.h"
+#include "OLED_SSD1306_Task.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -61,6 +63,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+
+
 
 #define COUNT  5
 static const char * const serverTbl[COUNT] = {
@@ -200,9 +204,8 @@ int main(void)
   MX_LWIP_Init();
   MX_USART3_UART_Init();
   MX_I2C1_Init();
-  MX_SPI1_Init();
   MX_TIM2_Init();
-  MX_SPI3_Init();
+  MX_SPI5_Init();
   /* USER CODE BEGIN 2 */
   MX_RTC_Init();  // -< I modified this function so much...
 
@@ -210,21 +213,26 @@ int main(void)
 
  // ClearStandbyFlags();
 
+  //DMA in STM32H7 series is rly strang :(
+  //ref here: https://community.st.com/s/article/FAQ-DMA-is-not-working-on-STM32H7-devices
+
+
+  OLED_Init();
+
   HAL_RTC_GetTime(&hrtc, &RtcTime, RTC_FORMAT_BIN);
   HAL_RTC_GetDate(&hrtc, &RtcDate, RTC_FORMAT_BIN);
 
-
   SNTPclientStart(serverTbl[3], &status[3]);
-
   httpd_init();
-
   // initializing CGI  [= CGI #7 =]
   myCGIinit();
-
   // initializing SSI [* SSI #6 *]
   mySSIinit();
-
   HAL_TIM_Base_Start_IT(&htim2);
+
+
+  RC522_appSetup();
+
 
   uint32_t YellowLedTime=HAL_GetTick();
  uint32_t TimeActualization=HAL_GetTick();
@@ -235,14 +243,12 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-
 	  if(HAL_GetTick() - YellowLedTime > 1000) //HeardBit
 	  {
 		  YellowLedTime=HAL_GetTick();
 		  HAL_GPIO_TogglePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin);
-		  HAL_UART_Transmit(&huart3, (uint8_t*) "HeartBit", 8, 100);
+		  //HAL_UART_Transmit(&huart3, (uint8_t*) "HeartBit\n\r", 10, 100);
 	  }
-
 	  if( HAL_GetTick() -zSNTPtimertime > 200)
 	  {
 		  zSNTPtimertime=HAL_GetTick();
@@ -253,6 +259,8 @@ int main(void)
 		  TimeActualization=HAL_GetTick();
 		  SNTPclientStart(serverTbl[3], &status[3]);
 	  }
+	  OLED_Task();
+	  RC522_appTask();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -352,6 +360,16 @@ void MPU_Config(void)
   MPU_InitStruct.TypeExtField = MPU_TEX_LEVEL1;
   MPU_InitStruct.IsShareable = MPU_ACCESS_SHAREABLE;
   MPU_InitStruct.IsBufferable = MPU_ACCESS_NOT_BUFFERABLE;
+
+  HAL_MPU_ConfigRegion(&MPU_InitStruct);
+  /** Initializes and configures the Region and the memory to be protected
+  */
+  MPU_InitStruct.Number = MPU_REGION_NUMBER2;
+  MPU_InitStruct.BaseAddress = 0x24000000;
+  MPU_InitStruct.Size = MPU_REGION_SIZE_128KB;
+  MPU_InitStruct.TypeExtField = MPU_TEX_LEVEL2;
+  MPU_InitStruct.IsCacheable = MPU_ACCESS_CACHEABLE;
+  MPU_InitStruct.IsBufferable = MPU_ACCESS_BUFFERABLE;
 
   HAL_MPU_ConfigRegion(&MPU_InitStruct);
   /* Enables the MPU */

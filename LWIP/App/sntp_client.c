@@ -64,6 +64,8 @@ struct sntp_client {
   int                *status;
 };
 
+struct tm  ts; //from lib c
+
 /* Czekaj na odpowiedź maksymalnie 4 sekundy. */
 #define SNTP_TIMEOUT  20
 
@@ -244,7 +246,7 @@ void SetAndPrintOnUartRTCFromSecond(uint32_t sec)
 
 	#define NTP_TOJJNIX 2208988800;
     time_t rawtime = sec+7200-NTP_TOJJNIX;
-    struct tm  ts;
+
     char       buf[80]={0};
 
     // Format time, "ddd yyyy-mm-dd hh:mm:ss zzz"

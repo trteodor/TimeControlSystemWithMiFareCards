@@ -15,15 +15,15 @@
 
 //Definitions pertaining to my device
 #include "stm32h7xx_hal.h"
-#define CS_PORT GPIOF
-#define CS_PIN GPIO_PIN_3
-extern SPI_HandleTypeDef hspi1;
+#define CS_PORT GPIOG
+#define CS_PIN GPIO_PIN_1
+extern SPI_HandleTypeDef hspi5;
 
 //Only this 3 function below depend from your device
 uint8_t RC522_SPI_Transfer(uint8_t data) //This  function depend from your device
 {
 	uint8_t rx_data;
-	HAL_SPI_TransmitReceive(&hspi1,&data,&rx_data,1,100);
+	HAL_SPI_TransmitReceive(&hspi5,&data,&rx_data,1,100);
 	return rx_data;
 }
 
@@ -183,9 +183,9 @@ MFRC522_StatusHandle MFRC522_ToCard(uint8_t command, uint8_t *sendData, uint8_t 
                 {   
 					n = 1;    
 				}
-                if (n > MAX_LEN)
+                if (n > BLOCK_MAX_LEN)
                 {   
-					n = MAX_LEN;   
+					n = BLOCK_MAX_LEN;
 				}
 				
 				//FIFO doc in the received data

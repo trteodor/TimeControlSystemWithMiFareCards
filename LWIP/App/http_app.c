@@ -8,6 +8,7 @@
 #include <string.h>
 // including httpd.h [- HTTPd #1 -]
 #include "lwip/apps/httpd.h"
+#include "rc522_app.h"
 
 // we include this library to be able to use boolean variables for SSI
 #include <Stdbool.h>
@@ -69,6 +70,8 @@ void myCGIinit(void)
 		http_set_cgi_handlers(theCGItable, 1);
 } // END [= CGI #6 =]
 
+
+
 // the actual function for SSI [* SSI #4 *]
 u16_t mySSIHandler(int iIndex, char *pcInsert, int iInsertLen)
 {
@@ -107,8 +110,14 @@ else if(iIndex ==2)
 	 	  Milliseconds = ((RtcTime.SecondFraction-RtcTime.SubSeconds)/((float)RtcTime.SecondFraction+1) * 100);
 	 	  HAL_RTC_GetDate(&hrtc, &RtcDate, RTC_FORMAT_BIN);
 
-	 	 sprintf((char*)pcInsert, "Czas na RTC w Mikrokontrolerze z SNTP gum.gov.pl Date: %02d.%02d.20%02d Time: %02d:%02d:%02d:%02d\n\r",
+	 	 iInsertLen=sprintf((char*)pcInsert, " <br><br>Czas na RTC w Mikrokontrolerze z SNTP gum.gov.pl <br> Date: %02d.%02d.20%02d Time: %02d:%02d:%02d:%02d<br><br>",
 					  RtcDate.Date, RtcDate.Month, RtcDate.Year, RtcTime.Hours, RtcTime.Minutes, RtcTime.Seconds, Milliseconds);
+	 	 uint32_t helperhh=iInsertLen;
+	 	iInsertLen=sprintf((char*)pcInsert+helperhh, "Monitorowanie Stanu Klientow (RC522+Ethernet+OLED_SSD1306) <br>");
+	 	iInsertLen=helperhh+iInsertLen;
+
+	 	CreateStringLogg(pcInsert+iInsertLen);  //This function create string users info. The function is implemented in rc522_app.c
+
 	          return strlen(pcInsert);
 }
  return 0;

@@ -15,4 +15,6 @@
 void SNTPclientStart(const char *, int *);
 void SNTPtimer(void);
 
+extern struct tm  ts;
+
 #endif

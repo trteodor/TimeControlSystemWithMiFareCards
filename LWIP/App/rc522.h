@@ -24,7 +24,8 @@ typedef struct __MFRC522_Handle{
 typedef	unsigned char uint8_t;
 typedef	unsigned int uint;
 
-#define MAX_LEN 16
+#define BLOCK_MAX_LEN 16
+#define UID_SIZE 5
 // Registers the MF522
 #define PCD_IDLE              0x00               //NO action; Huy bo lenh hien hanh
 #define PCD_AUTHENT           0x0E               //Accomplish the KEY
@@ -49,7 +50,7 @@ typedef	unsigned int uint;
 #define PICC_HALT             0x50               //Vao che do ngu
 
 //Page 0:Command and Status
-#define     Reserved00            0x00
+//#define     Reserved00            0x00
 #define     CommandReg            0x01
 #define     CommIEnReg            0x02
 #define     DivlEnReg             0x03
@@ -66,7 +67,7 @@ typedef	unsigned int uint;
 #define     CollReg               0x0E
 #define     Reserved01            0x0F
 //Page 1:Command
-#define     Reserved10            0x10
+//#define     Reserved10            0x10
 #define     ModeReg               0x11
 #define     TxModeReg             0x12
 #define     RxModeReg             0x13
@@ -128,17 +129,6 @@ MFRC522_StatusHandle MFRC522_WriteBlock(uint8_t blockAddr, uint8_t *writeData);
 MFRC522_StatusHandle MFRC522_ReadBlock(uint8_t blockAddr, uint8_t *recvData);
 MFRC522_StatusHandle MFRC522_Halt(void);
 MFRC522_StatusHandle MFRC522_DeAuth();
-
-
-
-
-
-
-
-
-
-
-
 
 
 #endif /* INC_RC522_H_ */
