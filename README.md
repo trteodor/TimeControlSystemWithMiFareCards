@@ -3,6 +3,7 @@ Hi!
 Here i test HTTPd protocol. On my site i driving LEDs and Viewing actual time in microcontroller 
 downloaded from SNTP. I also Control Worker time with RC522
 
+It is the most advanced application I have created so far. During programming, I used structures, queues, and many new things that I used for the first time. I am a bit satisfied with the quality of the code created.
 
 Video Demo:
 https://youtu.be/aZ1AEwbcjIA
