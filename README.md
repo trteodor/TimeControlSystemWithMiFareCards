@@ -1,5 +1,5 @@
 # NUCLEO-H723ZG ETH Own Simple HTTP
-Hi!
+Hi! 
 Here i test HTTPd protocol. On my site i driving LEDs and Viewing actual time in microcontroller 
 downloaded from SNTP. I also Control Worker time with RC522
 
