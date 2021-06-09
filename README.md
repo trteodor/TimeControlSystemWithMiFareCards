@@ -16,6 +16,6 @@ Because i can't correctly configure SNTP implemented in LwIP library. I implemen
 
 The Aplication files are in ./LwIP/App/... <-here
 
-TopLayer of this application is in - LWIP/App/rc522.c and http.c, OLED_SSD1306_Task.c 
+TopLayer of this application is in - LWIP/App/rc522app.c and http.c, OLED_SSD1306_Task.c 
 
 ![Visualisation](https://github.com/trteodor/Nucleo-STM32H723ZG-SimpleETH_ownHTTP/blob/master/WizualizacjaHTTP.PNG)
