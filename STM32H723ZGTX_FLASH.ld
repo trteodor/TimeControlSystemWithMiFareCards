@@ -177,6 +177,7 @@ SECTIONS
     . = ABSOLUTE(0x30000200);
     *(.RxArraySection) 
   } >RAM_D2 AT> ROM 
+
   
   /* Remove information from the compiler libraries */
   /DISCARD/ :
