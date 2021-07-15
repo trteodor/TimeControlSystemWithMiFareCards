@@ -6,7 +6,7 @@ downloaded from SNTP. I also Control Worker time with RC522
 It is the most advanced application I have created so far. During programming, I used structures, queues, and many new things that I used for the first time. I am a bit satisfied with the quality of the code created.
 
 
-I created this application to improve my skills programming
+I created this application to improve my programming skills 
 
 Video Demo:
 https://youtu.be/aZ1AEwbcjIA
